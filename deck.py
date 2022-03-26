@@ -1,7 +1,6 @@
 from card import Card
 from secrets import randbelow
 from linkedList import LinkedList
-from linkedList import Node
 
 
 class Deck:
@@ -27,28 +26,21 @@ class Deck:
 
     def shuffle(self):
         deck_size = len(self._ordered_deck)
+
         while deck_size > 0:
             random_card = randbelow(deck_size)
-            # if there are no cards in the shuffled deck, take first random card and assign it as the head.
-            card = self._ordered_deck[random_card]
-            node = Node(card)
 
-            if self._deck.get_head() is None:
-                self._deck.set_head(node)
-                # Check this logic.
-                self._deck.set_tail(node)
-            else:
-                tail = self._deck.get_tail()
-                tail.set_next = node
-                self._deck.set_tail(node)
+            card = self._ordered_deck[random_card]
+
+            self._deck.append(card)
 
             self.swap(self._ordered_deck, random_card, (deck_size - 1))
             deck_size -= 1
 
     def draw(self):
-        card = self._deck.get_head()
-        self._deck.set_head(card.get_next())
-        return card
+        current_head = self._deck.get_head()
+        self._deck.set_head(current_head.get_next())
+        return current_head.get_data()
 
     def print_deck(self):
         for cards in self._ordered_deck:
@@ -58,7 +50,3 @@ class Deck:
         placeholder = deck[a]
         deck[a] = deck[b]
         deck[b] = placeholder
-
-
-
-

@@ -15,6 +15,18 @@ class LinkedList:
     def get_tail(self):
         return self._tail
 
+    def append(self, data):
+        new_node = Node(data)
+        if self._head is None:
+            self.set_head(new_node)
+            self.get_head().set_next(self._tail)
+        elif self._head is not None and self._tail is None:
+            self._head.set_next(new_node)
+            self.set_tail(new_node)
+        else:
+            self._tail.set_next(new_node)
+            self.set_tail(new_node)
+
 
 class Node:
     def __init__(self, data):
@@ -32,4 +44,3 @@ class Node:
 
     def get_next(self):
         return self._next
-
